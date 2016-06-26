@@ -12,14 +12,15 @@
     "url": "git@github.com:quiverjs/quiver-signal.git"
   },
   "dependencies": {
-    "quiver-signal": "^1.0.0",
+    "quiver-signal": "^1.0.2",
     "quiver-util": "^1.2.1",
     "snabbdom": "^0.5.0",
+    "vdom-to-html": "^2.3.0",
     "virtual-dom": "^2.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
-    "quiver-babel": "^1.0.1",
+    "quiver-babel": "^1.0.2",
     "tape": "^4.5.1"
   },
   "bugs": {
