@@ -6,7 +6,7 @@ import { ImmutableMap } from 'quiver-util/immutable'
 import { subscribeChannel } from 'quiver-signal/method'
 
 import { h } from '../lib/hyperscript'
-import { equalsDom } from '../lib/assert'
+import { equalsDom } from '../lib/tape'
 import { renderSignal } from '../lib/render'
 import { combineRender } from '../lib/combine'
 
@@ -75,7 +75,6 @@ test('signal render test', assert => {
 
     setter1.setValue('Food is delicious!')
     setter2.setValue('Bara bara')
-    setter3.setValue('Good luck')
 
     const dom2 = await domChannel.nextValue()
     const expected2 =
@@ -114,6 +113,8 @@ test('signal render test', assert => {
       </main>
 
     assert::equalsDom(dom3, expected3)
+    
+    setter3.setValue('Good luck')
 
     const dom4 = await domChannel.nextValue()
     const expected4 =

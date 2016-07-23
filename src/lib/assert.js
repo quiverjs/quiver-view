@@ -1,22 +1,29 @@
-import html from 'vdom-to-html'
-import diff from 'virtual-dom/diff'
+import isVNode from 'virtual-dom/vnode/is-vnode'
 
-export const equalsDom = function(actual, expected, message='should be equal dom') {
-  const patches = diff(expected, actual)
-  const patchKeys = Object.keys(patches)
+// A value node can be either vnode, null, undefined, or string
+const isValueNode = vdom => {
+  if(isVNode(vdom)) return true
+  if(vdom === null) return true
+  if(vdom === undefined) return true
+  if(typeof(vdom) === 'string') return true
 
-  let isSame = false
+  return false
+}
 
-  if(patchKeys.length === 1 && patches.a) {
-    isSame = true
-  } else if(patchKeys.length === 0) {
-    isSame = true
+export const assertVdoms = vdoms => {
+  for(const vdom of vdoms) {
+    if(!isValueNode(vdom)) {
+      throw new TypeError('object must be virtual dom object')
+    }
   }
+}
 
-  this._assert(isSame, {
-    message,
-    operator: 'equalsDom',
-    actual: html(actual),
-    expected: html(expected)
-  })
+export const assertVdom = vdom => {
+  if(isValueNode(vdom)) return
+
+  if(vdom[Symbol.iterator]) {
+    assertVdoms(vdom)
+  } else {
+    throw new TypeError('object must be virtual dom object')
+  }
 }

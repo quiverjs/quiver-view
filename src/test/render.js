@@ -8,7 +8,7 @@ import { valueSignal } from 'quiver-signal'
 import { subscribeChannel } from 'quiver-signal/method'
 
 import { h } from '../lib/hyperscript'
-import { equalsDom } from '../lib/assert'
+import { equalsDom } from '../lib/tape'
 import { renderSignal } from '../lib/render'
 
 test('signal render test', assert => {

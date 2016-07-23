@@ -18,6 +18,7 @@ const joinStrings = function*(nodes) {
         yield lastStringNode
         lastStringNode = null
       }
+      yield node
     }
   }
 
@@ -26,10 +27,14 @@ const joinStrings = function*(nodes) {
   }
 }
 
+const flattenArray = arrays =>
+  Array.prototype.concat.apply([], arrays)
+
 // Hack to make the transpiled JSX syntax to be
 // compatible with virtual-dom's API, which expects
 // children elements to be passed as array.
 export const h = (element, props, ...children) => {
   const joinedChildren = [...joinStrings(children)]
+
   return _h(element, props, joinedChildren)
 }
