@@ -1,7 +1,7 @@
 import html from 'vdom-to-html'
 import diff from 'virtual-dom/diff'
 
-export const equalsDom = function(actual, expected, message) {
+export const equalsDom = function(actual, expected, message='should be equal dom') {
   const patches = diff(expected, actual)
   const patchKeys = Object.keys(patches)
 
