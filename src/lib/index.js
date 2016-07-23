@@ -1,1 +1,7 @@
+export { assertVdom, assertVdoms } from './assert'
+
+export { combineRender } from './combine'
+
+export { h } from './hyperscript'
+
 export { renderSignal } from './render'
