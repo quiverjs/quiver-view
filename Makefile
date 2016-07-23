@@ -1,5 +1,5 @@
 build: src
-	babel --presets 'quiver-babel/node-preset' --out-dir dist src
+	babel --presets 'quiver-babel/node-jsx-preset' --out-dir dist src
 
 test: build
 	node dist/test
