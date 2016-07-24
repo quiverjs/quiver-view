@@ -4,4 +4,7 @@ build: src
 test: build
 	node dist/test
 
-.PHONY: build test
+test-app:
+	cd test-app && webpack-dev-server --content-base public/
+
+.PHONY: build test test-app

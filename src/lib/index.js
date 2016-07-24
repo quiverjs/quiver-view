@@ -5,3 +5,5 @@ export { combineRender } from './combine'
 export { h } from './hyperscript'
 
 export { renderSignal } from './render'
+
+export { mountVdom } from './mount'

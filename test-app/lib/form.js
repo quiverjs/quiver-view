@@ -1,19 +1,19 @@
 import { h, renderSignal } from 'quiver-view'
-import { valueSignal } from 'quiver-signal'
+import { constantSignal, valueSignal } from 'quiver-signal'
 
 export const renderNameForm = () => {
-  const [nameSignal, nameSetter] = valueSignal('Guest')
+  const initialName = 'Guest'
+  const [nameSignal, nameSetter] = valueSignal(initialName)
 
-  const onSubmit = (ev) => {
-    const input = document.getElementById('name-input')
-    nameSetter.setValue(input.value)
+  const onChange = (ev) => {
+    const newName = ev.target.value
+    nameSetter.setValue(newName)
   }
 
-  const [form] = valueSignal(
+  const form = constantSignal(
     <div>
       <label for='name-input'>Enter your name:</label>
-      <input id='name-input' type='text'></input>
-      <button onclick={onSubmit}>Submit</button>
+      <input id='name-input' type='text' value={initialName} oninput={onChange}></input>
     </div>
   )
 

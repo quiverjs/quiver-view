@@ -1,6 +1,6 @@
 import { ImmutableMap, extract } from 'quiver-util/immutable'
 import { h, combineRender } from 'quiver-view'
-import { valueSignal } from 'quiver-signal'
+import { constantSignal } from 'quiver-signal'
 
 import { renderNameForm } from './form'
 import { renderGreet } from './greet'
@@ -17,7 +17,7 @@ export const renderApp = () => {
     counter: counterDom
   })
 
-  const [argsSignal] = valueSignal()
+  const argsSignal = constantSignal()
 
   return combineRender(argsSignal, childrenSignals,
     (args, children) => {
