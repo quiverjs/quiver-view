@@ -1,15 +1,11 @@
 import test from 'tape'
 
-import html from 'vdom-to-html'
-
-import { ImmutableMap } from 'quiver-util/immutable'
 import { asyncTest } from 'quiver-util/tape'
 import { valueSignal } from 'quiver-signal'
 import { subscribeChannel } from 'quiver-signal/method'
 
-import { h } from '../lib/hyperscript'
 import { equalsDom } from '../lib/tape'
-import { renderSignal } from '../lib/render'
+import { h, renderSignal, renderListSignal } from '../lib'
 
 test('signal render test', assert => {
   assert::asyncTest('basic render test', async assert => {

@@ -5,10 +5,8 @@ import { valueSignal } from 'quiver-signal'
 import { ImmutableMap } from 'quiver-util/immutable'
 import { subscribeChannel } from 'quiver-signal/method'
 
-import { h } from '../lib/hyperscript'
 import { equalsDom } from '../lib/tape'
-import { renderSignal } from '../lib/render'
-import { combineRender } from '../lib/combine'
+import { h, renderSignal, combineRender } from '../lib'
 
 test('signal render test', assert => {
   assert::asyncTest('combine render test', async assert => {
@@ -113,7 +111,7 @@ test('signal render test', assert => {
       </main>
 
     assert::equalsDom(dom3, expected3)
-    
+
     setter3.setValue('Good luck')
 
     const dom4 = await domChannel.nextValue()

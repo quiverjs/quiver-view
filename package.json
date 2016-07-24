@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "global": "^4.3.0",
-    "quiver-signal": "^1.0.3",
+    "quiver-signal": "^1.0.4",
     "quiver-util": "^1.2.5",
     "vdom-to-html": "^2.3.0",
     "virtual-dom": "^2.1.1"
@@ -37,7 +37,7 @@
   "scripts": {
     "test": "make test",
     "prepublish": "make build",
-    "test-app": "make test-app"
+    "start": "make test-app"
   },
   "engines": {
     "node": "^6.3.1"

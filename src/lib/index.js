@@ -7,3 +7,5 @@ export { h } from './hyperscript'
 export { renderSignal } from './render'
 
 export { mountVdom } from './mount'
+
+export { renderListSignal } from './list'

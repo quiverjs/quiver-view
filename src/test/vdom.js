@@ -1,6 +1,6 @@
 import test from 'tape'
 
-import { h } from '../lib/hyperscript'
+import { h } from '../lib'
 import { equalsDom } from '../lib/tape'
 
 test('vdom test', assert => {
