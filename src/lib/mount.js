@@ -1,33 +1,30 @@
-import diff from 'virtual-dom/diff'
-import patch from 'virtual-dom/patch'
+import patchDom from 'virtual-dom/patch'
 import createElement from 'virtual-dom/create-element'
+import { subscribeGenerator } from 'quiver-signal/method'
 
-import process from 'process'
-import window from 'global/window'
-
-const promisify = fn =>
-  () => new Promise(resolve => fn(resolve))
-
-const nextTick = promisify(window.requestAnimationFrame || process.nextTick)
+import { renderTickSignal } from './tick'
+import { sampleSignal } from './sample'
+import { patchSignal } from './patch'
 
 export const mountVdom = async (container, vdomSignal) => {
-  let currentVdom = vdomSignal.currentValue()
-  let currentDom = createElement(currentVdom)
+  const tickSignal = renderTickSignal()
+  const sampledSignal = sampleSignal(tickSignal, vdomSignal)
+  const patchedSignal = patchSignal(sampledSignal)
 
+  let [currentVdom, patch] = patchedSignal.currentValue()
+
+  let currentDom = createElement(currentVdom)
   container.appendChild(currentDom)
 
-  while(true) {
-    await Promise.all([nextTick(), vdomSignal.waitNext()])
+  patchedSignal::subscribeGenerator(function*() {
+    while(true) {
+      try {
+        const [vdom, patch] = yield
+        currentDom = patchDom(currentDom, patch)
 
-    try {
-      const vdom = vdomSignal.currentValue()
-
-      const patches = diff(currentVdom, vdom)
-      currentDom = patch(currentDom, patches)
-      currentVdom = vdom
-
-    } catch(err) {
-      console.error(err)
+      } catch(err) {
+        Promise.reject(err)
+      }
     }
-  }
+  })
 }
