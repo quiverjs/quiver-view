@@ -1,4 +1,3 @@
-import process from 'process'
 import window from 'global/window'
 
 import { timeout } from 'quiver-util/promise'

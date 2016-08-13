@@ -15,7 +15,7 @@ test('render signal list test', assert => {
 
     const [signal1, setter1] = valueSignal('pasta')
     const [signal2, setter2] = valueSignal('noodle')
-    const [signal3, setter3] = valueSignal('drink')
+    const [signal3] = valueSignal('drink')
 
     const [listSignal, listSetter] = valueSignal(ImmutableList(
       [signal1, signal2]))

@@ -5,7 +5,7 @@ import { valueSignal } from 'quiver-signal'
 import { subscribeChannel } from 'quiver-signal/method'
 
 import { equalsDom } from '../lib/tape'
-import { h, renderSignal, renderListSignal } from '../lib'
+import { h, renderSignal } from '../lib'
 
 test('signal render test', assert => {
   assert::asyncTest('basic render test', async assert => {

@@ -11,7 +11,7 @@ export const mountVdom = async (container, vdomSignal) => {
   const sampledSignal = sampleSignal(tickSignal, vdomSignal)
   const patchedSignal = patchSignal(sampledSignal)
 
-  let [currentVdom, patch] = patchedSignal.currentValue()
+  let [currentVdom] = patchedSignal.currentValue()
 
   let currentDom = createElement(currentVdom)
   container.appendChild(currentDom)
@@ -19,7 +19,7 @@ export const mountVdom = async (container, vdomSignal) => {
   patchedSignal::subscribeGenerator(function*() {
     while(true) {
       try {
-        const [vdom, patch] = yield
+        const [, patch] = yield
         currentDom = patchDom(currentDom, patch)
 
       } catch(err) {

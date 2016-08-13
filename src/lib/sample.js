@@ -1,5 +1,4 @@
 import { createSignal, safeValue } from 'quiver-signal'
-import { map } from 'quiver-signal/method'
 
 export const sampleSignal = (tickSignal, targetSignal) => {
   const [initialError, initialValue] = targetSignal::safeValue()

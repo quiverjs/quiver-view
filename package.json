@@ -7,9 +7,9 @@
   "name": "quiver-view",
   "desription": "View handler library for converting functions to output virtual DOM signals.",
   "version": "1.0.0",
-  "homepage": "https://github.com/quiverjs/quiver-signal",
+  "homepage": "https://github.com/quiverjs/quiver-view",
   "repository": {
-    "url": "git@github.com:quiverjs/quiver-signal.git"
+    "url": "git@github.com:quiverjs/quiver-view.git"
   },
   "dependencies": {
     "global": "^4.3.0",
@@ -20,16 +20,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
-    "babel-loader": "^6.2.4",
-    "babel-polyfill": "^6.9.1",
-    "babel-preset-es2015": "^6.9.0",
     "quiver-babel": "^1.0.3",
-    "tape": "^4.6.0",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "tape": "^4.6.0"
   },
   "bugs": {
-    "url": "https://github.com/quiverjs/quiver-signal/issues",
+    "url": "https://github.com/quiverjs/quiver-view/issues",
     "email": "quiver@quiverjs.org"
   },
   "license": "ISC",
@@ -37,7 +32,7 @@
   "scripts": {
     "test": "make test",
     "prepublish": "make build",
-    "start": "make test-app"
+    "install": "make build"
   },
   "engines": {
     "node": "^6.3.1"
