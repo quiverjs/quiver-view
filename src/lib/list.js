@@ -1,7 +1,8 @@
 import global from 'global'
 import { map } from 'quiver-signal/method'
+import { assertFunction } from 'quiver-util/assert'
 import { ImmutableMap } from 'quiver-util/immutable'
-import { flattenSignal, combineSignals } from 'quiver-signal'
+import { assertSignal, flattenSignal, combineSignals } from 'quiver-signal'
 
 import { renderSignal } from './render'
 
@@ -15,6 +16,11 @@ const CacheMap = global.WeakMap || global.Map
 export const renderListSignal =
   (mainSignal, signalListSignal, childrenRenderer, parentRenderer) =>
 {
+  assertSignal(mainSignal)
+  assertSignal(signalListSignal)
+  assertFunction(childrenRenderer)
+  assertFunction(parentRenderer)
+
   const vdomSignalCache = new CacheMap()
 
   // vdomSignalListSignal :: Signal List Signal VDOM
@@ -38,10 +44,23 @@ export const renderListSignal =
     childrenVdoms: vdomListSignal
   }))
 
-  return renderSignal(combinedSignals, valueMap => {
+  const mainVdomSignal = combinedSignals::map(valueMap => {
     const mainValue = valueMap.get('main')
-    const childrenVdoms = [...valueMap.get('childrenVdoms')]
+    const childrenVdomPairs = valueMap.get('childrenVdoms')
 
-    return parentRenderer(mainValue, childrenVdoms)
+    const childrenValues = childrenVdomPairs.map(
+      ([vdom, value]) => value)
+
+    const mainVdom = parentRenderer(mainValue, [...childrenVdomPairs])
+
+    const renderValue = ImmutableMap()
+      .set('main', mainValue)
+      .set('children', childrenValues)
+
+    return [mainVdom, renderValue]
   })
+
+  mainVdomSignal.isVdomSignal = true
+
+  return mainVdomSignal
 }

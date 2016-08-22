@@ -24,11 +24,11 @@ test('render signal list test', assert => {
       renderSignal(childSignal, value =>
         <div className='child'>{value}</div>)
 
-    const renderMain = (mainValue, childrenDoms) =>
+    const renderMain = (mainValue, childrenDomPairs) =>
       <div className='main'>
         <h1>{mainValue}</h1>
         <div className='children'>
-          {childrenDoms}
+          {childrenDomPairs.map(([vdom]) => vdom)}
         </div>
       </div>
 

@@ -27,3 +27,8 @@ export const assertVdom = vdom => {
     throw new TypeError('object must be virtual dom object')
   }
 }
+
+export const assertVdomSignal = vdomSignal => {
+  if(!vdomSignal.isVdomSignal)
+    throw new TypeError('signal must be vdom signal')
+}

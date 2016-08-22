@@ -35,8 +35,8 @@ test('signal render test', assert => {
 
     const mainSignal = combineRender(signal3, signalMap,
       (mainValue, childrenMap) => {
-        const fooDom = childrenMap.get('foo')
-        const barDom = childrenMap.get('bar')
+        const [fooDom] = childrenMap.get('foo')
+        const [barDom] = childrenMap.get('bar')
 
         return (
           <main>
