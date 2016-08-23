@@ -51,7 +51,7 @@ export const renderListSignal =
     const childrenValues = childrenVdomPairs.map(
       ([vdom, value]) => value)
 
-    const mainVdom = parentRenderer(mainValue, [...childrenVdomPairs])
+    const mainVdom = parentRenderer(mainValue, childrenVdomPairs)
 
     const renderValue = ImmutableMap()
       .set('main', mainValue)

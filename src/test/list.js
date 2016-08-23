@@ -28,7 +28,7 @@ test('render signal list test', assert => {
       <div className='main'>
         <h1>{mainValue}</h1>
         <div className='children'>
-          {childrenDomPairs.map(([vdom]) => vdom)}
+          {[...childrenDomPairs.values()].map(([vdom]) => vdom)}
         </div>
       </div>
 

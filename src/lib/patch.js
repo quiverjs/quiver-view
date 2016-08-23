@@ -6,7 +6,7 @@ import { assertVdomSignal } from './assert'
 export const patchSignal = vdomSignal => {
   assertVdomSignal(vdomSignal)
 
-  const [ initialError, initialVdom ] = vdomSignal::safeValue()
+  const [ initialError, [initialVdom] ] = vdomSignal::safeValue()
   const [resultSignal, setter] = createSignal({
     initialError,
     initialValue: [initialVdom, {}]

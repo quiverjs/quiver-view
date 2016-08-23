@@ -11,9 +11,6 @@ const $main = Symbol('@main')
 //     (args -> Map VDOM -> VDOM) -> Signal VDOM
 export const combineRender = (mainSignal, childrenSignalMap, renderer) => {
   assertSignal(mainSignal)
-  for(const childrenSignal of childrenSignalMap.values()) {
-    assertVdomSignal(childrenSignal)
-  }
 
   if(!isImmutableMap(childrenSignalMap))
     throw new TypeError('childrenSignalMap must be immutable Map')
@@ -25,10 +22,10 @@ export const combineRender = (mainSignal, childrenSignalMap, renderer) => {
   const combinedVdomSignal = combinedSignals::map(valueMap => {
     const mainValue = valueMap.get($main)
     const vdomPairsMap = valueMap.delete($main)
-    const childValues = vdomPairsMap.map(([vdom, value]) => value)
 
     const mainVdom = renderer(mainValue, vdomPairsMap)
 
+    const childValues = vdomPairsMap.map(([vdom, value]) => value)
     const renderValue = ImmutableMap()
       .set('main', mainValue)
       .set('children', childValues)
