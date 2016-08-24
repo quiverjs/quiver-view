@@ -12,6 +12,7 @@ export const sampleSignal = (tickSignal, targetSignal) => {
         setter.setValue(value)
       } catch(err) {
         setter.setError(err)
+        await Promise.reject(err)
       }
     }
   })()
