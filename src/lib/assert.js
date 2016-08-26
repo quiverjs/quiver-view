@@ -28,7 +28,8 @@ export const assertVdom = vdom => {
   }
 }
 
-export const assertVdomSignal = vdomSignal => {
-  if(!vdomSignal.isVdomSignal)
+// type SPV a = Signal Pair Vdom a
+export const assertSpva = spva => {
+  if(!spva.isQuiverSpva)
     throw new TypeError('signal must be vdom signal')
 }

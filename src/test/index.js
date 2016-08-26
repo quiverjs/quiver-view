@@ -1,4 +1,4 @@
 import './vdom'
-import './render'
-import './combine'
-import './list'
+import './render-signal'
+import './render-smcspvc'
+import './render-smscsc'

@@ -7,10 +7,10 @@ import { valueSignal } from 'quiver-signal'
 import { subscribeChannel } from 'quiver-signal/method'
 
 import { equalsDom } from '../lib/tape'
-import { h, renderSignal, renderListSignal } from '../lib'
+import { h, renderSignal, renderSmScsc } from '../lib'
 
-test('render signal list test', assert => {
-  assert::asyncTest('basic children render', async assert => {
+test('render Signal main Signal Container Signal child', assert => {
+  assert::asyncTest('basic renderSmScsc', async assert => {
     const [mainSignal, mainSetter] = valueSignal('party')
 
     const [signal1, setter1] = valueSignal('pasta')
@@ -32,7 +32,7 @@ test('render signal list test', assert => {
         </div>
       </div>
 
-    const domSignal = renderListSignal(mainSignal, listSignal, renderChild, renderMain)
+    const domSignal = renderSmScsc(mainSignal, listSignal, renderChild, renderMain)
 
     const expected1 =
       <div className='main'>

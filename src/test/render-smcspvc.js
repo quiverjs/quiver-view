@@ -6,10 +6,10 @@ import { ImmutableMap } from 'quiver-util/immutable'
 import { subscribeChannel } from 'quiver-signal/method'
 
 import { equalsDom } from '../lib/tape'
-import { h, renderSignal, combineRender } from '../lib'
+import { h, renderSignal, renderSmCspvc } from '../lib'
 
-test('signal render test', assert => {
-  assert::asyncTest('combine render test', async assert => {
+test('render Signal main Container Signal Pair Vdom child', assert => {
+  assert::asyncTest('basic renderSmCspvc', async assert => {
     const [signal1, setter1] = valueSignal('foo')
     const [signal2, setter2] = valueSignal('bar')
     const [signal3, setter3] = valueSignal('Hello World')
@@ -33,7 +33,7 @@ test('signal render test', assert => {
       bar: domSignal2
     })
 
-    const mainSignal = combineRender(signal3, signalMap,
+    const mainSignal = renderSmCspvc(signal3, signalMap,
       (mainValue, childrenMap) => {
         const [fooDom] = childrenMap.get('foo')
         const [barDom] = childrenMap.get('bar')

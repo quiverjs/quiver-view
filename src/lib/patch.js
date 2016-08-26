@@ -1,7 +1,6 @@
 import diff from 'virtual-dom/diff'
 import { createSignal, safeValue } from 'quiver-signal'
 import { subscribeGenerator } from 'quiver-signal/method'
-import { assertVdomSignal } from './assert'
 
 export const patchSignal = vdomSignal => {
   const [ initialError, [initialVdom] ] = vdomSignal::safeValue()
