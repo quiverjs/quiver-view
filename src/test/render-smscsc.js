@@ -17,22 +17,32 @@ test('render Signal main Signal Container Signal child', assert => {
     const [signal2, setter2] = valueSignal('noodle')
     const [signal3] = valueSignal('drink')
 
-    const [listSignal, listSetter] = valueSignal(ImmutableList(
-      [signal1, signal2]))
+    // slsc :: Signal List Signal child
+    const [slsc, slscSetter] = valueSignal(
+      ImmutableList([signal1, signal2]))
 
-    const renderChild = childSignal =>
+    const renderChildSignal = childSignal =>
       renderSignal(childSignal, value =>
         <div className='child'>{value}</div>)
 
-    const renderMain = (mainValue, childrenDomPairs) =>
-      <div className='main'>
-        <h1>{mainValue}</h1>
-        <div className='children'>
-          {[...childrenDomPairs.values()].map(([vdom]) => vdom)}
-        </div>
-      </div>
+    const renderMain = (mainValue, lpvc) => {
+      // clpc :: List Pair Vdom child
 
-    const domSignal = renderSmScsc(mainSignal, listSignal, renderChild, renderMain)
+      const childrenVdoms = [...lpvc.values()]
+        .map(([vdom]) => vdom)
+
+      return (
+        <div className='main'>
+          <h1>{mainValue}</h1>
+          <div className='children'>
+            {childrenVdoms}
+          </div>
+        </div>
+      )
+    }
+
+    // spva :: Signal Pair Vdom a
+    const spva = renderSmScsc(mainSignal, slsc, renderChildSignal, renderMain)
 
     const expected1 =
       <div className='main'>
@@ -43,9 +53,11 @@ test('render Signal main Signal Container Signal child', assert => {
         </div>
       </div>
 
-    assert::equalsDom(domSignal.currentValue(), expected1)
+    const [dom1] = spva.currentValue()
+    assert::equalsDom(dom1, expected1)
 
-    const domChannel = domSignal::subscribeChannel()
+    // cpva :: Channel Pair Vdom a
+    const cpva = spva::subscribeChannel()
 
     setter1.setValue('bolognese')
 
@@ -58,9 +70,10 @@ test('render Signal main Signal Container Signal child', assert => {
         </div>
       </div>
 
-    assert::equalsDom(await domChannel.nextValue(), expected2)
+    const [dom2] = await cpva.nextValue()
+    assert::equalsDom(dom2, expected2)
 
-    listSetter.setValue(ImmutableList([signal3, signal1]))
+    slscSetter.setValue(ImmutableList([signal3, signal1]))
 
     const expected3 =
       <div className='main'>
@@ -71,7 +84,8 @@ test('render Signal main Signal Container Signal child', assert => {
         </div>
       </div>
 
-    assert::equalsDom(await domChannel.nextValue(), expected3)
+    const [dom3] = await cpva.nextValue()
+    assert::equalsDom(dom3, expected3)
 
     setter2.setValue('hokkien mee')
     mainSetter.setValue('birthday')
@@ -85,9 +99,10 @@ test('render Signal main Signal Container Signal child', assert => {
         </div>
       </div>
 
-    assert::equalsDom(await domChannel.nextValue(), expected4)
+    const [dom4] = await cpva.nextValue()
+    assert::equalsDom(dom4, expected4)
 
-    listSetter.setValue(ImmutableList([signal2, signal1, signal3]))
+    slscSetter.setValue(ImmutableList([signal2, signal1, signal3]))
 
     const expected5 =
       <div className='main'>
@@ -99,7 +114,8 @@ test('render Signal main Signal Container Signal child', assert => {
         </div>
       </div>
 
-    assert::equalsDom(await domChannel.nextValue(), expected5)
+    const [dom5] = await cpva.nextValue()
+    assert::equalsDom(dom5, expected5)
 
     assert.end()
   })

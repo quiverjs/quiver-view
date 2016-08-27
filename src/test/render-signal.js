@@ -11,23 +11,25 @@ test('signal render test', assert => {
   assert::asyncTest('basic render test', async assert => {
     const [nameSignal, nameSetter] = valueSignal('John')
 
-    const domSignal = renderSignal(nameSignal, name => {
+    // spva :: Signal Pair Vdom a
+    const spva = renderSignal(nameSignal, name => {
       return <span>Hello, {name}</span>
     })
 
-    const resultDom1 = domSignal.currentValue()
+    const [dom1] = spva.currentValue()
     const expectedDom1 = <span>Hello, John</span>
 
-    assert::equalsDom(resultDom1, expectedDom1,
+    assert::equalsDom(dom1, expectedDom1,
       'virtual doms should be the same')
 
-    const domChannel = domSignal::subscribeChannel()
+    // cpva :: Channel Pair Vdom a
+    const cpva = spva::subscribeChannel()
 
     nameSetter.setValue('Smith')
-    const resultDom2 = await domChannel.nextValue()
+    const [dom2] = await cpva.nextValue()
     const expectedDom2 = <span>Hello, Smith</span>
 
-    assert::equalsDom(resultDom2, expectedDom2)
+    assert::equalsDom(dom2, expectedDom2)
 
     assert.end()
   })

@@ -14,29 +14,32 @@ test('render Signal main Container Signal Pair Vdom child', assert => {
     const [signal2, setter2] = valueSignal('bar')
     const [signal3, setter3] = valueSignal('Hello World')
 
-    const domSignal1 = renderSignal(signal1, value =>
+    // spva1 :: Signal Pair Vdom a
+    const spva1 = renderSignal(signal1, value =>
       <div className='foo'>
         <h2>Foo Section</h2>
         <p>Foo Value: {value}</p>
       </div>
     )
 
-    const domSignal2 = renderSignal(signal2, value =>
+    const spva2 = renderSignal(signal2, value =>
       <div className='bar'>
         <h2>Bar Section</h2>
         <p>Bar Value: {value}</p>
       </div>
     )
 
-    const signalMap = ImmutableMap({
-      foo: domSignal1,
-      bar: domSignal2
+    // cspva :: Container Signal Pair Vdom a
+    const cspva = ImmutableMap({
+      foo: spva1,
+      bar: spva2
     })
 
-    const mainSignal = renderSmCspvc(signal3, signalMap,
-      (mainValue, childrenMap) => {
-        const [fooDom] = childrenMap.get('foo')
-        const [barDom] = childrenMap.get('bar')
+    const mainSpva = renderSmCspvc(signal3, cspva,
+      (mainValue, childrenCpvc) => {
+        // childrenCpvc :: Container Pair Vdom a
+        const [fooDom] = childrenCpvc.get('foo')
+        const [barDom] = childrenCpvc.get('bar')
 
         return (
           <main>
@@ -50,7 +53,7 @@ test('render Signal main Container Signal Pair Vdom child', assert => {
         )
       })
 
-    const dom1 = mainSignal.currentValue()
+    const [dom1] = mainSpva.currentValue()
     const expected1 =
       <main>
         <div className='foo'>
@@ -69,12 +72,13 @@ test('render Signal main Container Signal Pair Vdom child', assert => {
 
     assert::equalsDom(dom1, expected1)
 
-    const domChannel = mainSignal::subscribeChannel()
+    // cpva :: Channel Pair Vdom a
+    const cpva = mainSpva::subscribeChannel()
 
     setter1.setValue('Food is delicious!')
     setter2.setValue('Bara bara')
 
-    const dom2 = await domChannel.nextValue()
+    const [dom2] = await cpva.nextValue()
     const expected2 =
       <main>
         <div className='foo'>
@@ -93,7 +97,7 @@ test('render Signal main Container Signal Pair Vdom child', assert => {
 
     assert::equalsDom(dom2, expected2)
 
-    const dom3 = await domChannel.nextValue()
+    const [dom3] = await cpva.nextValue()
     const expected3 =
       <main>
         <div className='foo'>
@@ -114,7 +118,7 @@ test('render Signal main Container Signal Pair Vdom child', assert => {
 
     setter3.setValue('Good luck')
 
-    const dom4 = await domChannel.nextValue()
+    const [dom4] = await cpva.nextValue()
     const expected4 =
       <main>
         <div className='foo'>

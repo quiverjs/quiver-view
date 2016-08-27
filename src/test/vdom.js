@@ -8,7 +8,7 @@ test('vdom test', assert => {
     const expected = <p>Hello, <span>World</span></p>
 
     const dom1 = <p>Hello, <span>{'World'}</span></p>
-    assert::equalsDom([dom1], expected)
+    assert::equalsDom(dom1, expected)
 
     const array = [
       'Hello, ',
@@ -16,10 +16,10 @@ test('vdom test', assert => {
     ]
 
     const dom2 = <p>{ array }</p>
-    assert::equalsDom([dom2], expected)
+    assert::equalsDom(dom2, expected)
 
     const dom3 = <p>Hello, {null}<span>World{undefined}</span></p>
-    assert::equalsDom([dom3], expected)
+    assert::equalsDom(dom3, expected)
 
     assert.end()
   })
