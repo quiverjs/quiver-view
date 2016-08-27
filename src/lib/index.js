@@ -4,6 +4,9 @@ export { h } from './hyperscript'
 
 export { mountVdom } from './mount'
 
+export { constantSpva } from './constant'
+export { renderScsa } from './render-scsa'
 export { renderSignal } from './render-signal'
-export { renderSmScsc } from './render-smscsc'
+export { renderSmScpvc } from './render-smscpvc'
 export { renderSmCspvc } from './render-smcspvc'
+export { renderSmScsc } from './render-smscsc'
