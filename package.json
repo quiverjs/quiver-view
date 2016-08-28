@@ -6,7 +6,7 @@
   },
   "name": "quiver-view",
   "desription": "View handler library for converting functions to output virtual DOM signals.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/quiverjs/quiver-view",
   "repository": {
     "url": "git@github.com:quiverjs/quiver-view.git"
