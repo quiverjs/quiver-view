@@ -1,3 +1,4 @@
+import React from 'react'
 import isVNode from 'virtual-dom/vnode/is-vnode'
 
 // A value node can be either vnode, null, undefined, or string
@@ -20,6 +21,7 @@ export const assertVdoms = vdoms => {
 
 export const assertVdom = vdom => {
   if(isValueNode(vdom)) return
+  if(React.isValidElement(vdom)) return
 
   if(vdom[Symbol.iterator]) {
     assertVdoms(vdom)

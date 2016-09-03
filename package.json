@@ -6,15 +6,16 @@
   },
   "name": "quiver-view",
   "desription": "View handler library for converting functions to output virtual DOM signals.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/quiverjs/quiver-view",
   "repository": {
     "url": "git@github.com:quiverjs/quiver-view.git"
   },
   "dependencies": {
     "global": "^4.3.0",
-    "quiver-signal": "^1.1.0",
+    "quiver-signal": "^1.1.1",
     "quiver-util": "^1.2.5",
+    "react": "^15.3.1",
     "vdom-to-html": "^2.3.0",
     "virtual-dom": "^2.1.1"
   },
